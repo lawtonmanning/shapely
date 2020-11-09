@@ -26,11 +26,14 @@ import matplotlib.pyplot as plt
         
 def convergence_plots(marginals):
     
+    (fig, axes) = plt.subplots(5,5)
+    axes = axes.ravel()
+    
     plt.rcParams['figure.figsize'] = 15,15
     for i, idx in enumerate(np.arange(min(25, marginals.shape[-1]))):
-        plt.subplot(5,5,i+1)
-        plt.plot(np.cumsum(marginals[:, idx])/np.arange(1, len(marginals)+1))    
-        
+        axes[i].plot(np.cumsum(marginals[:, idx])/np.arange(1, len(marginals)+1))    
+    
+    return fig
     
 def is_integer(array):
     return (np.equal(np.mod(array, 1), 0).mean()==1)
@@ -177,10 +180,10 @@ def label_generator(problem, X, param, difficulty=1, beta=None, important=None):
     funct = lambda x: (np.sum(beta * generate_features(
         x[:, important_dims], difficulty), -1) - mean) / std
     y_true = (y_true - mean)/std
-    if problem is 'classification':
+    if problem == 'classification':
         y_true = logistic.cdf(param * y_true)
         y = (np.random.random(X.shape[0]) < y_true).astype(int)
-    elif problem is 'regression':
+    elif problem == 'regression':
         y = y_true + param * np.random.normal(size=len(y_true))
     else:
         raise ValueError('Invalid problem specified!')
