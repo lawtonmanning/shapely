@@ -51,7 +51,7 @@ class DShap(object):
             
         if seed is not None:
             np.random.seed(seed)
-            tf.random.set_seed(seed)
+            tf.compat.v1.set_random_seed(seed)
         self.problem = problem
         self.model_family = model_family
         self.metric = metric
@@ -61,7 +61,7 @@ class DShap(object):
             self.hidden_units = []
         if self.directory is not None:
             if overwrite and os.path.exists(directory):
-                tf.gfile.DeleteRecursively(directory)
+                tf.compat.v1.gfile.DeleteRecursively(directory)
             if not os.path.exists(directory):
                 os.makedirs(directory)  
                 os.makedirs(os.path.join(directory, 'weights'))
@@ -621,6 +621,8 @@ class DShap(object):
                         bbox_inches = 'tight')
             plt.close()
             
+        return plt.gcf()
+    
     def _portion_performance(self, idxs, plot_points, sources=None):
         """Given a set of indexes, starts removing points from 
         the first elemnt and evaluates the new model after
