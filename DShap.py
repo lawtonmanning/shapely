@@ -51,13 +51,13 @@ class DShap(object):
             
         if seed is not None:
             np.random.seed(seed)
-            tf.random.set_random_seed(seed)
+            tf.random.set_seed(seed)
         self.problem = problem
         self.model_family = model_family
         self.metric = metric
         self.directory = directory
         self.hidden_units = kwargs.get('hidden_layer_sizes', [])
-        if self.model_family is 'logistic':
+        if self.model_family == 'logistic':
             self.hidden_units = []
         if self.directory is not None:
             if overwrite and os.path.exists(directory):
