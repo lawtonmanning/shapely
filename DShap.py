@@ -19,6 +19,8 @@ import inspect
 import _pickle as pkl
 from sklearn.metrics import f1_score, roc_auc_score
 
+from tqdm import tqdm
+
 class DShap(object):
     
     def __init__(self, X, y, X_test, y_test, num_test, sources=None, 
@@ -297,10 +299,7 @@ class DShap(object):
         if tolerance is None:
             tolerance = self.tolerance         
         marginals, idxs = [], []
-        for iteration in range(iterations):
-            if 10*(iteration+1)/iterations % 1 == 0:
-                print('{} out of {} TMC_Shapley iterations.'.format(
-                    iteration + 1, iterations))
+        for iteration in tqdm(range(iterations)):
             marginals, idxs = self.one_iteration(
                 tolerance=tolerance, 
                 sources=sources
@@ -620,8 +619,6 @@ class DShap(object):
                 self.directory, 'plots', '{}.png'.format(name)),
                         bbox_inches = 'tight')
             plt.close()
-            
-        return plt.gcf()
     
     def _portion_performance(self, idxs, plot_points, sources=None):
         """Given a set of indexes, starts removing points from 
