@@ -574,11 +574,9 @@ class DShap(object):
             Plots showing the change in performance as points are removed
             from most valuable to least.
         """
-        fig = plt.figure()
-        plt.rcParams['figure.figsize'] = 8,8
-        plt.rcParams['font.size'] = 25
-        plt.xlabel('Fraction of train data removed (%)')
-        plt.ylabel('Prediction accuracy (%)', fontsize=20)
+        fig, ax = plt.subplots()
+        ax.set_xlabel('Fraction of train data removed (%)')
+        ax.set_ylabel('Prediction accuracy (%)', fontsize=20)
         if not isinstance(vals, list) and not isinstance(vals, tuple):
             vals = [vals]
         if sources is None:
@@ -609,7 +607,7 @@ class DShap(object):
         rnd = np.mean([self._portion_performance(
             np.random.permutation(np.argsort(vals_sources[0])[::-1]),
             plot_points, sources=sources) for _ in range(10)], 0)
-        plt.plot(plot_points/len(self.X) * 100, perfs[0] * 100, 
+        ax.plot(plot_points/len(self.X) * 100, perfs[0] * 100, 
                  '-', lw=5, ms=10, color='b')
         if len(vals)==3:
             plt.plot(plot_points/len(self.X) * 100, perfs[1] * 100, 
@@ -619,11 +617,11 @@ class DShap(object):
             legends = ['TMC-Shapley ', 'LOO', 'Random']
         else:
             legends = ['TMC-Shapley ', 'Random']
-        plt.plot(plot_points/len(self.X) * 100, perfs[-1] * 100, 
+        ax.plot(plot_points/len(self.X) * 100, perfs[-1] * 100, 
                  '-.', lw=5, ms=10, color='g')
-        plt.plot(plot_points/len(self.X) * 100, rnd * 100, 
+        ax.plot(plot_points/len(self.X) * 100, rnd * 100, 
                  ':', lw=5, ms=10, color='r')    
-        plt.legend(legends)
+        ax.legend(legends)
 
         return fig
     
