@@ -573,6 +573,7 @@ class DShap(object):
             Plots showing the change in performance as points are removed
             from most valuable to least.
         """
+        fig = plt.figure()
         plt.rcParams['figure.figsize'] = 8,8
         plt.rcParams['font.size'] = 25
         plt.xlabel('Fraction of train data removed (%)')
@@ -593,6 +594,7 @@ class DShap(object):
             max(len(sources.keys()) - 10, num_plot_markers),
             max(len(sources.keys())//num_plot_markers, 1)
         )
+        
         perfs = [self._portion_performance(
             np.argsort(vals_source)[::-1], plot_points, sources=sources)
                  for vals_source in vals_sources]
@@ -614,11 +616,7 @@ class DShap(object):
         plt.plot(plot_points/len(self.X) * 100, rnd * 100, 
                  ':', lw=5, ms=10, color='r')    
         plt.legend(legends)
-        if self.directory is not None and name is not None:
-            plt.savefig(os.path.join(
-                self.directory, 'plots', '{}.png'.format(name)),
-                        bbox_inches = 'tight')
-            plt.close()
+        return fig
     
     def _portion_performance(self, idxs, plot_points, sources=None):
         """Given a set of indexes, starts removing points from 
