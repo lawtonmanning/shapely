@@ -575,8 +575,8 @@ class DShap(object):
             from most valuable to least.
         """
         fig, ax = plt.subplots()
-        ax.set_xlabel('Fraction of train data removed (%)')
-        ax.set_ylabel('Prediction accuracy (%)', fontsize=20)
+        ax.set_xlabel('Fraction of train data removed (\%)')
+        ax.set_ylabel('Metric')
         if not isinstance(vals, list) and not isinstance(vals, tuple):
             vals = [vals]
         if sources is None:
