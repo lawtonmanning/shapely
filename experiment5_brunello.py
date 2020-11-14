@@ -29,7 +29,7 @@ print(stats.describe(shapley_values))
 
 #plt.style.use('ggplot')
 #plt.show
-#plt.savefig("4000shap_exp5_hist.pdf")
+#plt.savefig("output/brunello/4000shap_exp5_hist.pdf")
 
 
 train_data1 = train_data_with_shapley_values
@@ -52,7 +52,7 @@ plt.style.use('ggplot')
 plt.xlabel('Number of added training points')
 plt.ylabel('Prediction accuracy (%)')
 plt.plot(range(0,4000), accuracy_values)
-#plt.savefig("brunello_experiment5_add_highvalue.pdf")
+#plt.savefig("output/brunello/brunello_experiment5_add_highvalue.pdf")
 
 train_data1 = train_data_with_shapley_values
 
@@ -73,4 +73,4 @@ plt.style.use('ggplot')
 plt.xlabel('Number of added training points')
 plt.ylabel('Prediction accuracy (%)')
 plt.plot(range(0,4000), accuracy_values2)
-#plt.savefig("brunello_experiment5_add_lowvalue.pdf")
+#plt.savefig("output/brunello/brunello_experiment5_add_lowvalue.pdf")

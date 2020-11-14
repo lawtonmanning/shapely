@@ -44,7 +44,7 @@ tmc_values = dshap.values_tmc
 loo_values = dshap.vals_loo
 print(tmc_values)
 train_df["shapley vals"] = tmc_values
-#train_df.to_csv("brunello_train_with_shapley.csv",index = False)
+#train_df.to_csv("output/brunello/brunello_train_with_shapley.csv",index = False)
 
 
 print(stats.describe(tmc_values))
@@ -52,15 +52,15 @@ print(stats.describe(loo_values))
 
 fig1 = dshap.performance_plots([dshap.values_tmc, dshap.vals_loo], num_plot_markers=20,
                        sources=dshap.sources, order = "d")
-#fig1.savefig("Logistic_accuracy_exp1.pdf")
+#fig1.savefig("output/brunello/Logistic_accuracy_exp1.pdf")
 
 fig2 = dshap.performance_plots([dshap.values_tmc, dshap.vals_loo], num_plot_markers=20,
                        sources=dshap.sources,order = "a")
-#fig2.savefig("Logistic_accuracy_exp2.pdf")
+#fig2.savefig("output/brunello/Logistic_accuracy_exp2.pdf")
 
 #plt.figure()
 
 #plt.style.use('ggplot')
 #plt.hist(tmc_values, bins = 10)
 #plt.show
-#plt.savefig("logistic_accuracy_shap_hist.pdf")
+#plt.savefig("output/brunello/logistic_accuracy_shap_hist.pdf")
